@@ -1,0 +1,102 @@
+In sandbox src
+
+Delete everything in index.css
+
+App.css **
+
+.Dontsayno-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+
+App.tsx **
+
+import { useState } from "react";
+import "./App.css";
+
+const phrases = [
+  "No",
+  "Are you sure?",
+  "Really Sure?",
+  "Please",
+  "Don't do this to me",
+  "I'm gonna cry ;(",
+];
+
+function App() {
+  const [noCount, setNoCount] = useState(0);
+  const [yesPressed, setYesPressed] = useState(false);
+  const yesButtonSize = noCount * 20 + 16;
+
+  function handleNoClick() {
+    setNoCount(noCount + 1);
+  }
+
+  function getNoButtonText() {
+    return phrases[Math.min(noCount, phrases.length - 1)];
+  }
+
+  return (
+    <div className="Dontsayno-container">
+      {yesPressed ? (
+        <>
+          <img
+            alt="bears kissing"
+            src="https://i.pinimg.com/originals/93/36/4b/93364b0c46210ac3096997fc419bf57a.gif"
+          />
+          <div className="text"> Yayy!! </div>
+        </>
+      ) : (
+        <>
+          <img
+            alt="bear with hearts"
+            src="https://i.pinimg.com/originals/93/36/4b/93364b0c46210ac3096997fc419bf57a.gif"
+          />
+
+          <div> Do you want to go on a date with me?</div>
+          <div>
+            <button
+              className="yesButton"
+              style={{ fontSize: yesButtonSize }}
+              onClick={() => {
+                setYesPressed(true);
+              }}
+            >
+              Yes
+            </button>
+            <button
+              className="noButton"
+              onClick={handleNoClick}
+              className="noButton"
+            >
+              {getNoButtonText()}
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+export default App;
+
+
+main.tsx **
+
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+);
+
+
+
